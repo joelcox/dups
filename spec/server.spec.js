@@ -11,12 +11,12 @@ describe('A server', function() {
 		expect(fn).toThrow('Must be initiated using new');
 	});
 
-	it('has a object literal containing for handlers', function() {
+	it('has a object literal for handlers', function() {
 		var server = new Dups.Server();
 		expect(Object.keys(server.handlers).length).toEqual(0);
 	});
 
-  describe('has a method receive', function() {
+  describe('has a receive method that', function() {
 
     var server = new Dups.Server();
     server.receive('greet', function testHandler() {
