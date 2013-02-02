@@ -1,0 +1,12 @@
+{
+  "name": "Dups",
+  "version": "0.0.1",
+  "devDependencies": {
+    "jasmine-node": {
+      "version": "1.0.26"
+    }
+  },
+  "scripts": {
+    "test": "node_modules/jasmine-node/bin/jasmine-node spec"
+  }
+}
