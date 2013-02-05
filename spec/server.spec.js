@@ -3,7 +3,7 @@ var dups = require('../lib');
 
 describe('A server', function() {
 
-  it('is initiated using the factory function', function() {
+  it('is initiated using a factory function', function() {
     var server = dups.createServer();
     expect(server instanceof dups.Server).toEqual(true);
   });
