@@ -1,12 +1,13 @@
 Dups
 ====
 
-A nice abstracting layer for using UDP based applications.
+A nice abstraction layer for writing UDP based applications.
 
 Example
 -------
-
-    var server = Dups.Server();
+    
+    var dups = require('dups');
+    var server = dups.createServer();
     
     server.init(function(response) {
         response.setBroadcast(true);

@@ -1,24 +1,21 @@
-var Dups = require('../lib');
+var dups = require('../lib');
 
 
 describe('A server', function() {
 
-	it('must be initiated using new', function() {
-    var fn = function() {
-      Dups.Server();
-    }
-
-		expect(fn).toThrow('Must be initiated using new');
-	});
+  it('is initiated using the factory function', function() {
+    var server = dups.createServer();
+    expect(server instanceof dups.Server).toEqual(true);
+  });
 
 	it('has a object literal for handlers', function() {
-		var server = new Dups.Server();
+		var server = dups.createServer();
 		expect(Object.keys(server.handlers).length).toEqual(0);
 	});
 
   describe('has a receive method that', function() {
 
-    var server = new Dups.Server();
+    var server = dups.createServer();
     server.receive('greet', function testHandler() {
       return;
     });
