@@ -1,31 +1,49 @@
 var dups = require('../lib');
-
+var stream = require('stream');
+var EventEmitter = require('events').EventEmitter;
 
 describe('A server', function() {
 
-  it('is initiated using a factory function', function() {
-    var server = dups.createServer();
+  var server;
+  var mockSocket;
+
+  beforeEach(function() {
+    mockSocket = new stream.Stream();
+    server = new dups.Server(mockSocket);
+  });
+
+  it('can be initiated using a factory function', function() {
     expect(server instanceof dups.Server).toEqual(true);
   });
 
-	it('has a object literal for handlers', function() {
-		var server = dups.createServer();
+	it('has an object literal for handlers', function() {
 		expect(Object.keys(server.handlers).length).toEqual(0);
 	});
 
-  describe('has a receive method that', function() {
+  describe('has socket property that', function() {
 
-    var server = dups.createServer();
-    server.receive('greet', function testHandler() {
-      return;
+    it('is inheritted from EventEmitter', function() {
+      expect(server.socket instanceof EventEmitter).toEqual(true);
     });
 
+  });
+
+  describe('has a receive method that', function() {
+
     it('allows you to associate a command with a handler', function() {
+      server.receive('greet', function testHandler() {
+        return;
+      });
+
       expect(Object.keys(server.handlers).length).toEqual(1);
       expect(typeof server.handlers.greet).toEqual('function');
     });
 
     it('throws an error when trying to overwriting a handler', function() {
+      server.receive('greet', function testHandler() {
+        return;
+      });
+
       var fn = function() {
         server.receive('greet', function() {
           return true;
