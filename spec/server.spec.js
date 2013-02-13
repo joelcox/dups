@@ -66,6 +66,9 @@ describe('A server', function() {
       expect(server.port).toEqual(8000);
       expect(server.address).toEqual('localhost');
       expect(server.socket.bind).toHaveBeenCalled();
+      expect(server.socket.bind.mostRecentCall.args)
+        .toEqual([8000, 'localhost']);
+
     });
 
     it('allows you to set a port and address', function() {
@@ -74,6 +77,8 @@ describe('A server', function() {
       expect(server.port).toEqual(8000);
       expect(server.address).toEqual('127.0.0.1');
       expect(server.socket.bind).toHaveBeenCalled();
+      expect(server.socket.bind.mostRecentCall.args)
+        .toEqual([8000, '127.0.0.1']);
     });
 
   });
