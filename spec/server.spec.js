@@ -9,6 +9,9 @@ describe('A server', function() {
 
   beforeEach(function() {
     mockSocket = new stream.Stream();
+    mockSocket.bind = function() {}
+    spyOn(mockSocket, 'bind');
+
     server = new dups.Server(mockSocket);
   });
 
@@ -59,14 +62,18 @@ describe('A server', function() {
 
     it('allows you to set a port', function() {
       server.bind(8000);
+
       expect(server.port).toEqual(8000);
       expect(server.address).toEqual('localhost');
+      expect(server.socket.bind).toHaveBeenCalled();
     });
 
     it('allows you to set a port and address', function() {
       server.bind(8000, '127.0.0.1');
+
       expect(server.port).toEqual(8000);
       expect(server.address).toEqual('127.0.0.1');
+      expect(server.socket.bind).toHaveBeenCalled();
     });
 
   });
