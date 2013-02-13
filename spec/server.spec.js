@@ -55,4 +55,20 @@ describe('A server', function() {
 
   });
 
+  describe('has a bind method that', function() {
+
+    it('allows you to set a port', function() {
+      server.bind(8000);
+      expect(server.port).toEqual(8000);
+      expect(server.address).toEqual('localhost');
+    });
+
+    it('allows you to set a port and address', function() {
+      server.bind(8000, '127.0.0.1');
+      expect(server.port).toEqual(8000);
+      expect(server.address).toEqual('127.0.0.1');
+    });
+
+  });
+
 });
