@@ -83,4 +83,30 @@ describe('A server', function() {
 
   });
 
+  describe('has an init method that', function() {
+
+    it('allows you to pass a initialization function', function() {
+      server.init(function(response) {
+        return true;
+      });
+
+      expect(typeof server.handlers.init).toEqual('function');
+    });
+
+    it('is executed after the server in bound', function() {
+      var initCallback = createSpy('init callback function');
+      server.init(initCallback);
+      server.bind(8000);
+
+      // Manually emit a start even so we the init function is called.
+      server.socket.emit('start');
+
+      // This is nasty. Don't have docs on hand (offline), so fix this later.
+      setTimeout(function() {
+        expect(initCallback).toHaveBeenCalled();
+      }, 10);
+    });
+
+  });
+
 });
