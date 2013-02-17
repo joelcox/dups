@@ -67,7 +67,7 @@ describe('A server', function() {
       expect(server.address).toEqual('localhost');
       expect(server.socket.bind).toHaveBeenCalled();
       expect(server.socket.bind.mostRecentCall.args)
-        .toEqual([8000, 'localhost']);
+        .toEqual([8000, undefined]);
 
     });
 
