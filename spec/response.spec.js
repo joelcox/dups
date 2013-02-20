@@ -1,11 +1,7 @@
 
-describe('A request', function() {
+describe('A response', function() {
 
-  it('has a data attribute', function() {
-
-  });
-
-  it('has a ip attribute', function() {
+  it('has a send method', function() {
 
   });
 

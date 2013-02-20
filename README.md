@@ -11,20 +11,20 @@ Example
     
     server.init(function(response) {
         response.setBroadcast(true);
-        response.write('join');
+        response.send('join');
     });
     
     server.receive('join', function(request, response) {
-        response.write('welcome', {'name': request.params.hostname});
+        response.send('welcome', {'name': request.params.hostname});
     });
     
     server.receive('pong', function(request, response) {
-        response.write('pong');
+        response.send('pong');
     });
     
     server.every(10000, function(response) {
         response.setBroadcast(true);
-        response.write('ping');
+        response.send('ping');
     });
     
     server.bind(8000);
