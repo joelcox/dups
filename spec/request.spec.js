@@ -30,7 +30,7 @@ describe('A request', function() {
     });
   });
 
-  it('has a address attribute', function() {
+  it('has an address attribute', function() {
     expect(req.address).toEqual('127.0.0.1');
   });
 
