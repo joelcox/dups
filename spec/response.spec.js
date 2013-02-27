@@ -1,14 +1,14 @@
 var response = require('../lib/response.js');
 var msgpack = require('msgpack');
 var stream = require('stream');
+var EventEmitter = require('events').EventEmitter;
 
 describe('A response', function() {
 
   var res;
-  var mockSocket;
 
   beforeEach(function () {
-    mockSocket = new stream.Stream();
+    var mockSocket = new stream.Stream();
     mockSocket.write = function() {}
     spyOn(mockSocket, 'write');
 
@@ -26,12 +26,20 @@ describe('A response', function() {
     expect(res.port).toEqual(8000);
   });
 
+  describe('has socket property that', function() {
+
+    it('is inheritted from EventEmitter', function() {
+      expect(res.socket instanceof EventEmitter).toEqual(true);
+    });
+
+  });
+
   describe('has a send method', function() {
 
     it('that allows you to set a command', function() {
       res.send('ping');
       var packed = msgpack.pack(['ping', undefined]);
-      
+
       expect(res.socket.write).toHaveBeenCalled();
       expect(res.socket.write.mostRecentCall.args)
         .toEqual([packed]);
@@ -44,7 +52,6 @@ describe('A response', function() {
       expect(res.socket.write).toHaveBeenCalled();
       expect(res.socket.write.mostRecentCall.args)
         .toEqual([packed]);
-
     })
 
   });

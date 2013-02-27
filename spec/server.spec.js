@@ -5,10 +5,9 @@ var EventEmitter = require('events').EventEmitter;
 describe('A server', function() {
 
   var server;
-  var mockSocket;
 
   beforeEach(function() {
-    mockSocket = new stream.Stream();
+    var mockSocket = new stream.Stream();
     mockSocket.bind = function() {}
     spyOn(mockSocket, 'bind');
 
