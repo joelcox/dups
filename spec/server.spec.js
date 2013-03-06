@@ -1,4 +1,6 @@
 var dups = require('../lib');
+var response = require('../lib/response');
+var request = require('../lib/request');
 var stream = require('stream');
 var EventEmitter = require('events').EventEmitter;
 
@@ -11,7 +13,7 @@ describe('A server', function() {
     mockSocket.bind = function() {}
     spyOn(mockSocket, 'bind');
 
-    server = new dups.Server(mockSocket);
+    server = new dups.Server(mockSocket, response.Response, request.Request);
   });
 
   it('can be initiated using a factory function', function() {
@@ -97,8 +99,8 @@ describe('A server', function() {
       server.init(initCallback);
       server.bind(8000);
 
-      // Manually emit a start even so we the init function is called.
-      server.socket.emit('start');
+      // Manually emit a listening even so we the init function is called.
+      server.socket.emit('listening');
 
       // This is nasty. Don't have docs on hand (offline), so fix this later.
       setTimeout(function() {
