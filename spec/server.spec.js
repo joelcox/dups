@@ -2,6 +2,7 @@ var dups = require('../lib');
 var response = require('../lib/response');
 var request = require('../lib/request');
 var stream = require('stream');
+var msgpack = require('msgpack');
 var EventEmitter = require('events').EventEmitter;
 
 describe('A server', function() {
@@ -58,6 +59,24 @@ describe('A server', function() {
     });
 
   });
+
+  it('is executed after a specific command is received', function() {
+    var receiveCallback = createSpy('receive callback function');
+    server.receive('join', receiveCallback);
+    server.bind(8000);
+
+    // Manually emit a message event so we the init function is called.
+    server.socket.emit('message', msgpack.pack({command: 'join'}), {
+      address: '127.0.0.1',
+      port: 8000,
+    });
+
+    // This is nasty. Don't have docs on hand (offline), so fix this later.
+    setTimeout(function() {
+      expect(receiveCallback).toHaveBeenCalled();
+    }, 10);
+  });
+
 
   describe('has a bind method that', function() {
 
