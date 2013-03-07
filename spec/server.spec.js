@@ -18,8 +18,12 @@ describe('A server', function() {
   });
 
   it('can be initiated using a factory function', function() {
-    expect(server instanceof dups.Server).toEqual(true);
+    expect(dups.createServer() instanceof dups.Server).toEqual(true);
   });
+
+  it('can be inititated using a constructor', function() {
+    expect(server instanceof dups.Server).toEqual(true);
+  })
 
 	it('has an object literal for handlers', function() {
 		expect(Object.keys(server.handlers).length).toEqual(0);
@@ -58,25 +62,41 @@ describe('A server', function() {
       expect(fn).toThrow('Handler already set for this command');
     });
 
-  });
+    it('is executed after a specific command is received', function() {
+      var receiveCallback = createSpy('receive callback function');
+      server.receive('join', receiveCallback);
+      server.bind(8000);
 
-  it('is executed after a specific command is received', function() {
-    var receiveCallback = createSpy('receive callback function');
-    server.receive('join', receiveCallback);
-    server.bind(8000);
+      // Manually emit a message event so we the init function is called.
+      server.socket.emit('message', msgpack.pack({command: 'join'}), {
+        address: '127.0.0.1',
+        port: 8000,
+      });
 
-    // Manually emit a message event so we the init function is called.
-    server.socket.emit('message', msgpack.pack({command: 'join'}), {
-      address: '127.0.0.1',
-      port: 8000,
+      // This is nasty. Don't have docs on hand (offline), so fix this later.
+      setTimeout(function() {
+        expect(receiveCallback).toHaveBeenCalled();
+      }, 10);
+
     });
 
-    // This is nasty. Don't have docs on hand (offline), so fix this later.
-    setTimeout(function() {
-      expect(receiveCallback).toHaveBeenCalled();
-    }, 10);
-  });
+    it('throws an exception if there\'s no handler for a command', function() {
 
+      // Start the server and manually emit a message
+      var fn =  function() {
+        server.bind(8000);
+        server.socket.emit('message', msgpack.pack({command: 'join'}), {
+          address: '127.0.0.1',
+          port: 8000,
+        });
+
+      };
+
+      expect(fn).toThrow('No handler for command join');
+
+    });
+
+  });
 
   describe('has a bind method that', function() {
 
@@ -125,6 +145,11 @@ describe('A server', function() {
       setTimeout(function() {
         expect(initCallback).toHaveBeenCalled();
       }, 10);
+
+    });
+
+    it('isn\'t executed if it\'s not set', function() {
+      expect(server._runInit()).toEqual(false);
     });
 
   });
