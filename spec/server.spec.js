@@ -149,7 +149,7 @@ describe('A server', function() {
     });
 
     it('isn\'t executed if it\'s not set', function() {
-      expect(server._runInit()).toEqual(false);
+      expect(server._processInit()).toEqual(false);
     });
 
   });
