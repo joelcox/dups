@@ -1,12 +1,20 @@
 {
   "name": "Dups",
   "version": "0.0.1",
+  "dependencies": {
+    "msgpack": {
+      "version": "0.1.8"
+    }
+  },
   "devDependencies": {
     "jasmine-node": {
       "version": "1.0.26"
+    },
+    "istanbul": {
+      "version": "0.1.31"
     }
   },
   "scripts": {
-    "test": "node_modules/jasmine-node/bin/jasmine-node spec --verbose"
+    "test": "istanbul test jasmine-node spec -- --verbose"
   }
 }
