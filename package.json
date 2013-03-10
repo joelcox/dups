@@ -1,19 +1,14 @@
 {
   "name": "Dups",
   "version": "0.0.1",
+  "description": "A little abstraction layer for writing UDP based services.",
   "main": "lib/index",
   "dependencies": {
-    "msgpack": {
-      "version": "0.1.8"
-    }
+    "msgpack": "0.1.8"
   },
   "devDependencies": {
-    "jasmine-node": {
-      "version": "1.0.26"
-    },
-    "istanbul": {
-      "version": "0.1.31"
-    }
+    "jasmine-node": "*",
+    "istanbul": "*"
   },
   "scripts": {
     "test": "istanbul test jasmine-node spec -- --verbose"
