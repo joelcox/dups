@@ -3,6 +3,8 @@ Dups
 
 A little abstraction layer for writing UDP based services.
 
+[![Build Status](https://travis-ci.org/joelcox/dups.png?branch=develop)](https://travis-ci.org/joelcox/dups)
+
 Example
 -------
 

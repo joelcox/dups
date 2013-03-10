@@ -1,4 +1,4 @@
-var dups = require('../lib');
+var dups = require('../lib/server');
 var response = require('../lib/response');
 var request = require('../lib/request');
 var stream = require('stream');
@@ -12,7 +12,9 @@ describe('A server', function() {
   beforeEach(function() {
     var mockSocket = new stream.Stream();
     mockSocket.bind = function() {}
+    mockSocket.send = function() {}
     spyOn(mockSocket, 'bind');
+    spyOn(mockSocket, 'send');
 
     server = new dups.Server(mockSocket, response.Response, request.Request);
   });
@@ -68,7 +70,7 @@ describe('A server', function() {
       server.bind(8000);
 
       // Manually emit a message event so we the init function is called.
-      server.socket.emit('message', msgpack.pack({command: 'join'}), {
+      server.socket.emit('message', msgpack.pack(['join']), {
         address: '127.0.0.1',
         port: 8000,
       });
@@ -85,7 +87,7 @@ describe('A server', function() {
       // Start the server and manually emit a message
       var fn =  function() {
         server.bind(8000);
-        server.socket.emit('message', msgpack.pack({command: 'join'}), {
+        server.socket.emit('message', msgpack.pack(['join']), {
           address: '127.0.0.1',
           port: 8000,
         });

@@ -9,8 +9,8 @@ describe('A response', function() {
 
   beforeEach(function () {
     var mockSocket = new stream.Stream();
-    mockSocket.write = function() {}
-    spyOn(mockSocket, 'write');
+    mockSocket.send = function() {}
+    spyOn(mockSocket, 'send');
 
     res = new response.Response(mockSocket, {
       address: '127.0.0.1',
@@ -40,18 +40,18 @@ describe('A response', function() {
       res.send('ping');
       var packed = msgpack.pack(['ping', undefined]);
 
-      expect(res.socket.write).toHaveBeenCalled();
-      expect(res.socket.write.mostRecentCall.args)
-        .toEqual([packed]);
+      expect(res.socket.send).toHaveBeenCalled();
+      expect(res.socket.send.mostRecentCall.args)
+        .toEqual([packed, 0, packed.length, 8000, '127.0.0.1']);
     });
 
     it('that allows you to set a command and data', function() {
       res.send('ping', {hostname: 'mbp.local'});
       var packed = msgpack.pack(['ping', {hostname: 'mbp.local'}]);
 
-      expect(res.socket.write).toHaveBeenCalled();
-      expect(res.socket.write.mostRecentCall.args)
-        .toEqual([packed]);
+      expect(res.socket.send).toHaveBeenCalled();
+      expect(res.socket.send.mostRecentCall.args)
+        .toEqual([packed, 0, packed.length, 8000, '127.0.0.1']);
     })
 
   });

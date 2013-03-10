@@ -6,13 +6,12 @@ describe('A request', function() {
   var req;
 
   beforeEach(function() {
-    req = new request.Request(msgpack.pack({
-      'command': 'join',
-      'data': {
+    req = new request.Request(msgpack.pack([
+      'join', {
         'foo': 'bar',
         'spam': 'eggs',
         }
-      }), {
+      ]), {
         'port': 8000,
         'address': '127.0.0.1',
       }
