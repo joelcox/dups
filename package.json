@@ -1,6 +1,7 @@
 {
   "name": "Dups",
   "version": "0.0.1",
+  "main": "lib/index",
   "dependencies": {
     "msgpack": {
       "version": "0.1.8"
