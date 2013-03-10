@@ -1,24 +1,26 @@
 Dups
 ====
 
-A nice abstraction layer for writing UDP based applications.
+A little abstraction layer for writing UDP based services.
 
 Example
 -------
+
+*Note: Broadcast and timed messages have yet to be implemented.*
     
     var dups = require('dups');
     var server = dups.createServer();
     
     server.init(function(response) {
         response.setBroadcast(true);
-        response.send('join');
+        response.send('join', {'name': 'joel'});
     });
     
     server.receive('join', function(request, response) {
-        response.send('welcome', {'name': request.params.hostname});
+        console.log(request.data.name + ' wants to join');
     });
     
-    server.receive('pong', function(request, response) {
+    server.receive('ping', function(request, response) {
         response.send('pong');
     });
     
