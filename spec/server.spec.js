@@ -42,23 +42,17 @@ describe('A server', function() {
   describe('has a receive method that', function() {
 
     it('allows you to associate a command with a handler', function() {
-      server.receive('greet', function testHandler() {
-        return;
-      });
+      server.receive('greet', function() {});
 
       expect(Object.keys(server.handlers).length).toEqual(1);
       expect(typeof server.handlers.greet).toEqual('function');
     });
 
     it('throws an error when trying to overwriting a handler', function() {
-      server.receive('greet', function testHandler() {
-        return;
-      });
+      server.receive('greet', function() {});
 
       var fn = function() {
-        server.receive('greet', function() {
-          return true;
-        });
+        server.receive('greet', function() {});
       }
 
       expect(fn).toThrow('Handler already set for this command');
@@ -128,10 +122,7 @@ describe('A server', function() {
   describe('has an init method that', function() {
 
     it('allows you to pass a initialization function', function() {
-      server.init(function(response) {
-        return true;
-      });
-
+      server.init(function(response) { });
       expect(typeof server.handlers.init).toEqual('function');
     });
 
@@ -150,7 +141,7 @@ describe('A server', function() {
 
     });
 
-    it('isn\'t executed if it\'s not set', function() {
+    it('isn\'t executed if it isn\'t set', function() {
       expect(server._processInit()).toEqual(false);
     });
 
