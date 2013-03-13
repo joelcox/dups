@@ -52,7 +52,23 @@ describe('A response', function() {
       expect(res.socket.send).toHaveBeenCalled();
       expect(res.socket.send.mostRecentCall.args)
         .toEqual([packed, 0, packed.length, 8000, '127.0.0.1']);
-    })
+    });
+
+    it('throws an exception when the address property is empty', function() {
+
+    });
+
+  });
+
+  describe('has a sendBroadcast method', function() {
+
+    it('calls Dgram.setBroadcast before it calls send', function() {
+
+    });
+
+    it('sets the address to the broadcast address', function() {
+
+    });
 
   });
 
