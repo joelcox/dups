@@ -47,7 +47,7 @@ describe('A server', function() {
       server.receive('greet', function() {});
 
       expect(Object.keys(server.handlers).length).toEqual(1);
-      expect(typeof server.handlers.greet).toEqual('function');
+      expect(typeof server.handlers.greet.fn).toEqual('function');
     });
 
     it('throws an error when trying to overwriting a handler', function() {
@@ -125,7 +125,7 @@ describe('A server', function() {
 
     it('allows you to pass a initialization function', function() {
       server.init(function(response) { });
-      expect(typeof server.handlers.init).toEqual('function');
+      expect(typeof server.handlers.init.fn).toEqual('function');
     });
 
     it('is executed after the server in bound', function() {
