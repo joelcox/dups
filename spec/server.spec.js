@@ -163,4 +163,32 @@ describe('A server', function() {
 
   });
 
+  describe('has a startIntervals method that', function () {
+
+    it('creates intervals for interval commands', function(done) {
+      var joinNetworkCallback = createSpy('join network function');
+      server.every(500, 'joinNetwork', joinNetworkCallback);
+      server._startIntervals();
+
+      setTimeout(function() {
+        expect(joinNetworkCallback.callCount).toEqual(2);
+        done();
+        clearInterval(server.handlers.joinNetwork.intervalId);
+      }, 1010);
+
+    });
+
+    it ('doesn\'t create intervals for non-interval commands', function(done) {
+      var joinNetworkCallback = createSpy('join network function');
+      server.receive('join', joinNetworkCallback);
+      server._startIntervals();
+
+      setTimeout(function() {
+        expect(joinNetworkCallback.callCount).toEqual(0);
+        done();
+      }, 1010);
+    });
+
+  });
+
 });
