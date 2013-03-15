@@ -10,13 +10,15 @@ describe('A server', function() {
   var server;
 
   beforeEach(function() {
+    server = new dups.Server();
+
+    // Create mock for the socket
     var mockSocket = new stream.Stream();
     mockSocket.bind = function() {}
     mockSocket.send = function() {}
     spyOn(mockSocket, 'bind');
     spyOn(mockSocket, 'send');
-
-    server = new dups.Server(mockSocket, response.Response, request.Request);
+    server.socket = mockSocket;
   });
 
   it('can be initiated using a factory function', function() {
