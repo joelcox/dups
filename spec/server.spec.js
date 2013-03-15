@@ -149,4 +149,18 @@ describe('A server', function() {
 
   });
 
+  describe('has a every method that', function() {
+
+    it('allows you to set a callback function', function() {
+
+      server.every(2000, 'joinNetwork', function() { });
+      expect(typeof server.handlers.joinNetwork).toEqual('object');
+      expect(server.handlers.joinNetwork.intervalId).toEqual(null);
+      expect(server.handlers.joinNetwork.interval).toEqual(2000);
+      expect(typeof server.handlers.joinNetwork.fn).toEqual('function');
+
+    });
+
+  });
+
 });
