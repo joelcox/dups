@@ -14,8 +14,8 @@ describe('A server', function() {
 
     // Create mock for the socket
     var mockSocket = new stream.Stream();
-    mockSocket.bind = function() {}
-    mockSocket.send = function() {}
+    mockSocket.bind = function() {};
+    mockSocket.send = function() {};
     spyOn(mockSocket, 'bind');
     spyOn(mockSocket, 'send');
     server.socket = mockSocket;
@@ -27,7 +27,7 @@ describe('A server', function() {
 
   it('can be inititated using a constructor', function() {
     expect(server instanceof dups.Server).toEqual(true);
-  })
+  });
 
 	it('has an object literal for handlers', function() {
 		expect(Object.keys(server.handlers).length).toEqual(0);
@@ -55,7 +55,7 @@ describe('A server', function() {
 
       var fn = function() {
         server.receive('greet', function() {});
-      }
+      };
 
       expect(fn).toThrow('Handler already set for this command');
     });
@@ -68,7 +68,7 @@ describe('A server', function() {
       // Manually emit a message event so we the init function is called.
       server.socket.emit('message', msgpack.pack(['join']), {
         address: '127.0.0.1',
-        port: 8000,
+        port: 8000
       });
 
       // This is nasty. Don't have docs on hand (offline), so fix this later.
@@ -85,7 +85,7 @@ describe('A server', function() {
         server.bind(8000);
         server.socket.emit('message', msgpack.pack(['join']), {
           address: '127.0.0.1',
-          port: 8000,
+          port: 8000
         });
 
       };

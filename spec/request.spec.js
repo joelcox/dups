@@ -9,13 +9,13 @@ describe('A request', function() {
     req = new request.Request(msgpack.pack([
       'join', {
         'foo': 'bar',
-        'spam': 'eggs',
+        'spam': 'eggs'
         }
       ]), {
         'port': 8000,
-        'address': '127.0.0.1',
+        'address': '127.0.0.1'
       }
-    )
+    );
   });
 
   it('has a command attribute', function() {
@@ -25,7 +25,7 @@ describe('A request', function() {
   it('has a data attribute', function() {
     expect(req.data).toEqual({
       'foo': 'bar',
-      'spam': 'eggs',
+      'spam': 'eggs'
     });
   });
 

@@ -8,7 +8,8 @@
   },
   "devDependencies": {
     "jasmine-node": "*",
-    "istanbul": "*"
+    "istanbul": "*",
+    "jshint": "*",
   },
   "scripts": {
     "test": "istanbul test jasmine-node spec -- --verbose"

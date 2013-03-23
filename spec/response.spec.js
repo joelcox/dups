@@ -9,12 +9,12 @@ describe('A response', function() {
 
   beforeEach(function () {
     var mockSocket = new stream.Stream();
-    mockSocket.send = function() {}
+    mockSocket.send = function() {};
     spyOn(mockSocket, 'send');
 
     res = new response.Response(mockSocket, {
       address: '127.0.0.1',
-      port: 8000,
+      port: 8000
     });
   });
 
