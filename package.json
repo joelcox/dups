@@ -9,7 +9,7 @@
   "devDependencies": {
     "jasmine-node": "*",
     "istanbul": "*",
-    "jshint": "*",
+    "jshint": "*"
   },
   "scripts": {
     "test": "istanbul test jasmine-node spec -- --verbose"
