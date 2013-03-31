@@ -152,13 +152,9 @@ describe('A server', function() {
   describe('has a every method that', function() {
 
     it('allows you to set a callback function', function() {
-
-      server.every(2000, 'joinNetwork', function() { });
-      expect(typeof server.handlers.joinNetwork).toEqual('object');
-      expect(server.handlers.joinNetwork.intervalId).toEqual(null);
-      expect(server.handlers.joinNetwork.interval).toEqual(2000);
-      expect(typeof server.handlers.joinNetwork.fn).toEqual('function');
-
+      server.every(2000, function() { });
+      expect(typeof server.handlers['2000']).toEqual('object');
+      expect(typeof server.handlers['2000'].fn).toEqual('function');
     });
 
   });
@@ -167,13 +163,12 @@ describe('A server', function() {
 
     it('creates intervals for interval commands', function(done) {
       var joinNetworkCallback = createSpy('join network function');
-      server.every(500, 'joinNetwork', joinNetworkCallback);
+      server.every(500, joinNetworkCallback);
       server._startIntervals();
 
       setTimeout(function() {
         expect(joinNetworkCallback.callCount).toEqual(2);
         done();
-        clearInterval(server.handlers.joinNetwork.intervalId);
       }, 1010);
 
     });
