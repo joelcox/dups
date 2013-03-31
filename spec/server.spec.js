@@ -169,6 +169,7 @@ describe('A server', function() {
       setTimeout(function() {
         expect(joinNetworkCallback.callCount).toEqual(2);
         done();
+        server.clearIntervals();
       }, 1010);
 
     });
@@ -181,7 +182,24 @@ describe('A server', function() {
       setTimeout(function() {
         expect(joinNetworkCallback.callCount).toEqual(0);
         done();
+        server.clearIntervals();
       }, 1010);
+    });
+
+  });
+
+  describe('has a clearIntervals method that', function() {
+
+    it('returns 0 if there are no intervals to clear', function() {
+      expect(server.clearIntervals()).toEqual(0);
+    });
+
+    it('return the amount of intervals cleared', function() {
+      server.every(1000, function() {});
+      server.every(5000, function() {});
+      server._startIntervals();
+
+      expect(server.clearIntervals()).toEqual(2);
     });
 
   });
